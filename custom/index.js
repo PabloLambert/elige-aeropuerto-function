@@ -57,12 +57,11 @@ const TravelIntentHandler = {
    },
    handle(handlerInput) {
 
-
        let value = handlerInput.requestEnvelope.request.intent.slots.airport;
 
        let speechText = "";
 
-       if ( value != undefined and value.length > 0 ) {
+       if ( !isEmpty(value) ) {
          speechText += "Viajando a: " + value;
        }
        else {
@@ -193,13 +192,17 @@ const getStaticAndDynamicSlotValuesFromSlot = function(slot) {
    return result;
 };
 
+function isEmpty(val){
+    return (val === undefined || val == null || val.length <= 0) ? true : false;
+}
+
 // This handler acts as the entry point for your skill, routing all request and response
 // payloads to the handlers above. Make sure any new handlers or interceptors you've
 // defined are included below. The order matters - they're processed top to bottom.
 exports.handler = Alexa.SkillBuilders.custom()
    .addRequestHandlers(
        LaunchRequestHandler,
-       HelloWorldIntentHandler,
+       TravelIntentHandler,
        HelpIntentHandler,
        CancelAndStopIntentHandler,
        SessionEndedRequestHandler,
