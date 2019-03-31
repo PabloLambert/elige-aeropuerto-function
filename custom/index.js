@@ -50,23 +50,24 @@ const LaunchRequestHandler = {
    }
 };
 
-const HelloWorldIntentHandler = {
+const TravelIntentHandler = {
    canHandle(handlerInput) {
        return handlerInput.requestEnvelope.request.type === 'IntentRequest'
-           && handlerInput.requestEnvelope.request.intent.name === 'HelloWorldIntent';
+           && handlerInput.requestEnvelope.request.intent.name === 'TravelIntent';
    },
    handle(handlerInput) {
 
 
-       const slotSDValue = getStaticAndDynamicSlotValuesFromSlot(handlerInput.requestEnvelope.request.intent.slots.boardGame)
+       let value = handlerInput.requestEnvelope.request.intent.slots.airport;
 
+       let speechText = "";
 
-       let prompt = "Sadly, however, it appears you don't have that in your library. Please choose another game.";
-       if (slotSDValue.dynamic.statusCode === 'ER_SUCCESS_MATCH') {
-           prompt = "The rules are blah, blah, blah. I don't know the rules.";
+       if ( value != undefined and value.length > 0 ) {
+         speechText += "Viajando a: " + value;
        }
-
-       const speechText = `So you want to play ${slotSDValue.value}. ${prompt}`;
+       else {
+         speechText += "Hm...no entendí donde viajas";
+       }
 
        return handlerInput.responseBuilder
            .speak(speechText)
