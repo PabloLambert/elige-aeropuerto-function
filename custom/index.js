@@ -57,7 +57,7 @@ const TravelIntentHandler = {
    },
    handle(handlerInput) {
 
-       let value = handlerInput.requestEnvelope.request.intent.slots.airport;
+       let value = handlerInput.requestEnvelope.request.intent.slots.airport.value;
 
        let speechText = "";
 
